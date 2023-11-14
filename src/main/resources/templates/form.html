@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>form</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}" />
+</head>
+<body>
+<h1> Formulario</h1>
+<h3 th:text="${mensaje}"/>
+<form action="recibe-parametros-objeto" method="post" id="f1" th:object ="${formulario}" >
+    <label id="lab_nombre" for="nombre" th:text="#{etiqueta_nombre}"/>
+    <input type="text" th:field="*{nombre}"/>
+    <ul>
+        <li th:each="error : ${#fields.errors('nombre')}" th:text="${error}" class="error" />
+    </ul>
+    <!--/* HTML generado
+    <input type="text" name="nombre" id="nombre" value="<lo que venga del controlador>"/>
+
+    */-->
+    <br/>
+    <label id="lab_clave" for="clave" th:text="#{etiqueta_clave}"/>
+    <input type="password" th:field="*{clave}"/>
+    <th:block th:each="error : ${#fields.errors('clave')}" >
+        <div th:text="${error}" class="error"/>
+    </th:block>
+
+    <br/>
+    <label id="lab_fecha" for="fecha">Fecha de nacimiento</label>
+    <input type="text" th:field="*{fecha}">
+    <th:block th:each="error : ${#fields.errors('fecha')}" >
+        <div th:text="${error}" class="error"/>
+    </th:block>
+    <br/>
+    <label id="lab_edad" for="edad">Edad</label>
+    <input type="text" th:field="*{edad}">
+    <th:block th:each="error : ${#fields.errors('edad')}" >
+        <div th:text="${error}" class="error"/>
+    </th:block>
+    <br/>
+    <label id="lab_puntuacion" for="puntuacion">Puntuacion</label>
+    <input type="text" th:field="*{puntuacion}">
+    <th:block th:each="error : ${#fields.errors('puntuacion')}" >
+        <div th:text="${error}" class="error"/>
+    </th:block>
+    <br/>
+    <input type="hidden" name="pi" id="pi" value="3.14"/>
+
+    <label> Genero</label>
+    <label th:each="genero: ${listageneros}">
+        <th:block th:text="${genero.value}"/>
+        <input type="radio"
+               th:value="${genero.key}"
+               th:field="*{genero}"/>
+    </label>
+    <br/>
+    <!--
+    <th:block th:each="genero: ${listageneros}">
+        <label th:for="genero.key" th:text="${genero.value}"/>
+        <input type="radio"
+               th:value="${genero.key}"
+               th:field="*{genero}"/>
+    </th:block>
+    -->
+
+    <br/>
+    <label>Aficiones</label>
+    <label th:each="aficion: ${listaaficiones}">
+        <th:block th:text="${aficion.value}"/>
+        <input type="checkbox"
+               th:value="${aficion.key}"
+               th:field="*{aficiones}"/>
+    </label>
+
+    <br/>
+    <label for="descripcion">Descripción del producto</label>
+    <br>
+    <textarea th:field="*{descripcion}" cols="30" rows="5"></textarea>
+    <br/>
+    <label id="tit_pais" class="titulo">Pais</label>&emsp;&emsp;
+    <select th:field="*{pais}" >
+        <!-- <option  th:each="paiskey: ${paises.keySet()}" th:value="${paiskey}" th:text="${paises.get(paiskey)}"></option-->
+        <option  th:each="pais: ${listapaises}"
+                 th:value="${pais.key}"
+                 th:text="${pais.value}">
+        </option>
+
+    </select>
+    <label id="tit_musica" class="titulo">Musicas</label>&emsp;&emsp;
+    <select th:field="*{musicas}" multiple="multiple" size="3">
+        <option th:each="musica: ${listamusicas}"
+                th:value="${musica.key}"
+                th:text="${musica.value}">
+        </option>
+    </select>
+    <br>
+    <input type="image" name="imagen" id="img" th:src="@{/imagenes/gato.jpeg}"/>
+    <br>
+    <input type="file" id="file" name="file">
+    <br>
+    <input type="button" value="Marcar todos los checkboxes" id="BmarcarCheckboxes"/>
+    <input type="button" value="Marcar todos los select multiple" id="BmarcarSelectMultiple"/>
+    <input type="button" value="Desmarcar todo" id="BdesmarcarTodo"/>
+    <br>
+    <input type="reset" id="btn_reset" value="Resetear"/>
+    <input type="submit" id="btn_submit" value="Enviar"/>
+</form>
+<script type="text/javascript" th:src="@{/javaScript/form.js}"></script>
+</body>
+</html>
