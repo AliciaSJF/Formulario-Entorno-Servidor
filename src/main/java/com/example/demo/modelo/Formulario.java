@@ -3,21 +3,29 @@ package com.example.demo.modelo;
 
 
 
+import jakarta.validation.constraints.*;
+
 import java.time.LocalDate;
 import java.util.List;
 
 public class Formulario {
+    @NotBlank
     private String nombre;
-    private String
-            clave,
-            pais,
-            descripcion,
-            genero,
-            file;
+    @Size(min = 6, max = 12)
+    @Pattern(regexp = "^(?=.*\\d)(?=.*[A-Z])[A-Za-z\\d]{6,12}$")
+    private String clave;
+    private String pais;
+    @NotBlank
+    private String descripcion;
+    private String genero;
+    private String file;
+    @NotEmpty
     private List<String> aficiones, musicas;
     private Float puntuacion;
     private Double pi;
+    @Min(value = 18)
     private Integer edad;
+    @Past
     private LocalDate fecha;
 
     public Formulario(String nombre,

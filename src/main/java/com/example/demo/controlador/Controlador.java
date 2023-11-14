@@ -3,6 +3,7 @@ package com.example.demo.controlador;
 
 import com.example.demo.modelo.Colecciones;
 import com.example.demo.modelo.Formulario;
+import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -50,7 +51,8 @@ public class Controlador {
     }
 
     @PostMapping("recibe-parametros-objeto")
-    public String recibeParametrosObjeto(Model modelo, Formulario formulario,
+    public String recibeParametrosObjeto(Model modelo,
+                                         @Valid Formulario formulario,
                                          BindingResult resultadoVinculacionParametros) {
         //Tratamiento de errores
         String msgForm;
